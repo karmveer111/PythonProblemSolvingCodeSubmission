@@ -51,11 +51,15 @@ def choose_word(wordlist):
 wordlist = load_words()
 
 # your code begins here!
-def hangman(waheguru):
+def hangman():
+    waheguru = random.choice(wordlist)
     print ("welcome to the game, Hangman!")
-    print ("I am thinking of a word that is " + str(len(waheuru)) + "letters long.")
+    print ("I am thinking of a word that is " + str(len(waheguru)) + "letters long.")
     lettersguessed = ''
     guessesleft = 8
+    getguessedword = waheguru
+    getavailableletters = random.choice(wordlist)
+    iswordguessed = waheguru
     while True:
         print ("You have " + str(guessesleft) + " guesses left.")
         print ("Available letters: " + getavailableletters(lettersguessed))
@@ -69,10 +73,10 @@ def hangman(waheguru):
             lettersguessed += guess
             print ("Oops! that letter is not in my word: " + getguessedword(waheguru,lettersguessed))
             guessesleft -= 1
-        if guessleft <= 0:
+        if guessesleft <= 0:
             print ("Sorry, You've ran out of guesses. The word was " + waheguru + ".")
             break
         if iswordguessed(waheguru, lettersguessed):
             print ("Congratulations! You've won!")
             break
-
+        # i am getting error as word not recognized i am facing problem to getting the guessed number and match with it wordlist.ss
