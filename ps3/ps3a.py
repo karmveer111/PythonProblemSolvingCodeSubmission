@@ -87,13 +87,13 @@ def get_word_score(word, n):
     if word == "":
         return 0
     else:
-        raw_score = 0
+	score = 0
         for i in range(len(word)):
-            raw_score += SCRABBLE_LETTER_VALUES[word[i]]
+            score += SCRABBLE_LETTER_VALUES[word[i]]
         if len(word) == n:
-            return raw_score*len(word) + 50
+            return score*len(word) + 50
         else:
-            return raw_score*len(word)
+            return score*len(word)
     
     
 
