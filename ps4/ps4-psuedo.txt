@@ -1,0 +1,59 @@
+Problem set #04 psuedo code
+Name: Karmveer Kaur
+Time spent: 3 hours
+
+
+Your algorithms should be plain English explanations for the steps your program will take to solve these problems.
+
+Write out your algorithm for Problem 2 here:
+# Its the codebreaking in which encoded text decryts and return plain text.
+# first we will take an integer value which will count the numbe of valid words for each shift 
+# then next integer when valid word is greater than the previous value, the shift assign to it
+# we will take these values equal to 0 at first
+# then we can use a loop, we will use for loop beacuse we know the range for testing decode value from 0 to 27
+ we ill use for loop shift in range of 28
+# then we can print h value if we want for checking 
+# now decode the text as shifted_text = apply_codder(text,build_decoder(shift))
+# then split the decoded text into different words using .split()
+# then count valid word we will tske it 0 initially
+# then counting number of valid words we use anoter for loop
+# check condition if is_word in the wordlist and word is then valid word in incresed by 1 as valid_word_count += 1
+# and if valid word count is greater than maximum words found then maximum words found is equal to valid word count that will set the number of words to new max
+# and the current shift to best shift by best_shift = shift
+# then return the best shift.
+
+ 
+Write out your algorithm for Problem 4 here:
+
+# in this first we create a global_list that will store valid shifts across recursive calls
+# shift_list = []
+# then we will use loop that will go through all possible shifts
+# then apply the shift to the text
+# then check shifted text contains a space
+# then check condition that the text from start of string to the space found word
+# then call the recursive function 
+# then check condition for none in shifts list
+# reset the shift list 
+# then pass to next shift in iteration 
+# if the none is not found in shifts_list then append the first shift shifts added backwards
+# then break out loop
+# if initial shift does not find a space then value_error
+# check condition if the string with no space is only the one word
+# then append the shift to shifts_list
+# break the loop
+# else if the string that has no space is not actually a word the loop continuous at the next iteration
+# return shifts_list
+
+# next in the function find_best_shifts_rec allow the use of global variable shifts_list
+# what the shifts_list level of recursion
+# split text into two pieces one is before the start parameter and other from word found in previous call
+# then check all possible shifts we can use loop 
+# apply current shift to second segment of string
+# check if any spaces created in current shift
+## check condition for valid word 
+# recursively call find_best_shifts_rec function with  new parameter
+# check for none when recursivecalls finished
+# reset shifts_list
+# else append the shifts_list and return
+# if no valid shift is found append none to shifts_list
+# we can also test the best shifts.
