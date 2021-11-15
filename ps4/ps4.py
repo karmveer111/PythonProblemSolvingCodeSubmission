@@ -124,7 +124,24 @@ def build_coder(shift):
     'v': 'y', 'y': 'a', 'x': ' ', 'z': 'b'}
     (The order of the key-value pairs may be different.)
     """
+    
     ### TODO.
+    assert (shift>=-27 and shift<=27)
+    cm_dict = {' ':0,'A':1,'B':2,'C':3,'D':4,'E':5,'F':6,'G':7,'H':8,'I':9,'J':10,'K':11,'L':12,'M':13,'N':14,'O':15,'P':16,'Q':17,'R':18,'S':19,'T':20,'U':21,'V':22,'W':23,'X':24,'Y':25,'Z':26}
+    cciph_dict = {}
+    for i in cm_dict:
+        t = (cm_dict[i] + shift) % 27
+        for j in cm_dict.keys():
+            if cm_dict[j] == t:
+                cciph_dict[i] = j
+    f_dict = cciph_dict.copy()
+    print(f_dict)
+    for i in cciph_dict.keys():
+        f_dict[i.lower()] = f_dict[i].lower()
+        return f_dict
+print(build_coder(3))
+# also we can use slicing for upper and lower shift. we can use dict directly and return. 
+    
 
 def build_encoder(shift):
     """
@@ -153,6 +170,9 @@ def build_encoder(shift):
 
     HINT : Use build_coder.
     """
+    encoder = build_coder(shift)
+    return encoder
+print(build_encoder(3))
     ### TODO.
 
 def build_decoder(shift):
@@ -184,6 +204,8 @@ def build_decoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
+    return build_coder(-shift)
+print(build_coder(2))
  
 
 def apply_coder(text, coder):
@@ -200,6 +222,18 @@ def apply_coder(text, coder):
     >>> apply_coder("Khoor,czruog!", build_decoder(3))
     'Hello, world!'
     """
+    #return "".join([coder.get(letter, letter) for letter in text])
+    cciph_text = ''
+    for i in text:
+        if i in coder.keys():
+            cciph_text = cciph_text + coder[i]
+        else:
+            cciph_text = cciph_text + i
+    return cciph_text
+print(apply_coder("Hello, world!", build_encoder(3)))
+print(apply_coder("Khoor,czruog!", build_decoder(3)))
+
+
     ### TODO.
   
 
@@ -221,7 +255,9 @@ def apply_shift(text, shift):
     'Apq hq hiham a.'
     """
     ### TODO.
-   
+    res_shift = apply_coder(text, build_encoder(shift))
+    return res_shift
+print(apply_shift('This is a test.', 8))
 #
 # Problem 2: Codebreaking.
 #
@@ -242,6 +278,29 @@ def find_best_shift(wordlist, text):
     'Hello, world!'
     """
     ### TODO
+##    words =  text.split(" ")
+##    for shift in range(26):
+##        coder = build_coder(shift)
+##        if sum(is_word(word_list, apply_coder(word, coder)) for word in words)/2:
+##            return shift
+##    return False
+    for shift in range(1,28):
+        num = 0
+        x = apply_coder(text, build_decoder(shift))
+        words = x.split()
+        for j in words:
+            if not is_word(wordlist, j):
+                break
+            else:
+                num = num + 1
+        if num == len(words):
+            return shift
+x = apply_coder('Do Androids Dream of Electric Sheep?', build_encoder(6))
+print(x)
+print(find_best_shift(wordlist,x))
+   
+        
+
    
 #
 # Problem 3: Multi-level encryption.
@@ -263,7 +322,11 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
- 
+    for i in shifts:
+        changed_text = apply_shift(text[i[0]: ], i[1])
+        text = text[:i[0]] + changed_text
+    return text
+print(apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)]))
 #
 # Problem 4: Multi-level decryption.
 #
@@ -329,10 +392,38 @@ def decrypt_fable():
 
 
 
-    
-#What is the moral of the story?
-#
-#
+## in this first we create a global_list that will store valid shifts across recursive calls
+# shift_list = []
+# then we will use loop that will go through all possible shifts
+# then apply the shift to the text
+# then check shifted text contains a space
+# then check condition that the text from start of string to the space found word
+# then call the recursive function 
+# then check condition for none in shifts list
+# reset the shift list 
+# then pass to next shift in iteration 
+# if the none is not found in shifts_list then append the first shift shifts added backwards
+# then break out loop
+# if initial shift does not find a space then value_error
+# check condition if the string with no space is only the one word
+# then append the shift to shifts_list
+# break the loop
+# else if the string that has no space is not actually a word the loop continuous at the next iteration
+# return shifts_list
+
+# next in the function find_best_shifts_rec allow the use of global variable shifts_list
+# what the shifts_list level of recursion
+# split text into two pieces one is before the start parameter and other from word found in previous call
+# then check all possible shifts we can use loop 
+# apply current shift to second segment of string
+# check if any spaces created in current shift
+## check condition for valid word 
+# recursively call find_best_shifts_rec function with  new parameter
+# check for none when recursivecalls finished
+# reset shifts_list
+# else append the shifts_list and return
+# if no valid shift is found append none to shifts_list
+# we can also test the best shifts.
 #
 #
 #
